@@ -1,0 +1,36 @@
+{
+    "name": "cryonighter/http-logger",
+    "description": "Logger for HTTP request and response",
+    "minimum-stability": "stable",
+    "homepage": "https://github.com/cryonighter/http-logger",
+    "type": "library",
+    "version": "1.0.0",
+    "license": "MIT",
+    "keywords": ["log", "logger", "http"],
+    "authors": [
+        {
+            "name": "Andrey Reshetchenko",
+            "email": "cryonighter@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Cryonighter\\HttpLogger\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cryonighter\\HttpLogger\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "psr/http-message": "^1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.0"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
