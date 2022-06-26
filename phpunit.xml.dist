@@ -8,7 +8,7 @@
         convertWarningsToExceptions="true"
         bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="Payment Gateway Logger Test Suite">
+        <testsuite name="HTTP Logger Test Suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
@@ -21,7 +21,7 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="tests/coverage" title="Payment Gateway Logger Code Coverage"
+        <log type="coverage-html" target="tests/coverage" title="HTTP Logger Code Coverage"
              charset="UTF-8" yui="true" highlight="true"
              lowUpperBound="35" highLowerBound="70"/>
     </logging>
