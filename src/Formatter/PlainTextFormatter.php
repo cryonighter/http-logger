@@ -55,7 +55,7 @@ class PlainTextFormatter implements FormatterInterface
             $result[] = implode(
                 $this->lineSeparator,
                 array_map(
-                    function ($headerValue) use ($headerName) {
+                    function (string $headerValue) use ($headerName): string {
                         return "$headerName: $headerValue";
                     },
                     $headerValues

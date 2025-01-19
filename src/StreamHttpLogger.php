@@ -46,7 +46,7 @@ class StreamHttpLogger implements HttpLoggerInterface
         $this->responseHandler = $responseHandler;
     }
 
-    public static function create($handle = null, FormatterInterface $formatter = null, RequestHandler $requestHandler = null, ResponseHandler $responseHandler = null): self
+    public static function create($handle = null, ?FormatterInterface $formatter = null, ?RequestHandler $requestHandler = null, ?ResponseHandler $responseHandler = null): self
     {
         return new self(
             $handle ?? STDOUT,
