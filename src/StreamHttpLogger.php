@@ -3,8 +3,10 @@
 namespace Cryonighter\HttpLogger;
 
 use Cryonighter\HttpLogger\Formatter\PlainTextFormatter;
+use Cryonighter\HttpLogger\Handler\DefaultErrorHandler;
 use Cryonighter\HttpLogger\Handler\DefaultRequestHandler;
 use Cryonighter\HttpLogger\Handler\DefaultResponseHandler;
+use Cryonighter\HttpLogger\Handler\ErrorHandler;
 use Cryonighter\HttpLogger\Handler\RequestHandler;
 use Cryonighter\HttpLogger\Handler\ResponseHandler;
 use Cryonighter\HttpLogger\Formatter\FormatterInterface;
@@ -36,23 +38,50 @@ class StreamHttpLogger implements HttpLoggerInterface
     private $responseHandler;
 
     /**
+     * @var ErrorHandler
+     */
+    private $errorHandler;
+
+    /**
      * @param resource $handle
      */
-    public function __construct($handle, FormatterInterface $formatter, RequestHandler $requestHandler, ResponseHandler $responseHandler)
-    {
+    public function __construct(
+        $handle,
+        FormatterInterface $formatter,
+        RequestHandler $requestHandler,
+        ResponseHandler $responseHandler,
+        ErrorHandler $errorHandler
+    ) {
         $this->handle = $handle;
         $this->formatter = $formatter;
         $this->requestHandler = $requestHandler;
         $this->responseHandler = $responseHandler;
+        $this->errorHandler = $errorHandler;
     }
 
-    public static function create($handle = null, ?FormatterInterface $formatter = null, ?RequestHandler $requestHandler = null, ?ResponseHandler $responseHandler = null): self
-    {
+    public static function create(
+        $handle = null,
+        ?FormatterInterface $formatter = null,
+        ?RequestHandler $requestHandler = null,
+        ?ResponseHandler $responseHandler = null,
+        ?ErrorHandler $errorHandler = null
+    ): self {
         return new self(
             $handle ?? STDOUT,
             $formatter ?? new PlainTextFormatter(),
             $requestHandler ?? new DefaultRequestHandler(),
-            $responseHandler ?? new DefaultResponseHandler()
+            $responseHandler ?? new DefaultResponseHandler(),
+            $errorHandler ?? new DefaultErrorHandler()
+        );
+    }
+
+    public function logError(string $error): void
+    {
+        fwrite(
+            $this->handle,
+            $this->errorHandler->prepareError(
+                $this->formatter->formatError($error)
+            )
         );
     }
 

@@ -37,7 +37,13 @@ use Cryonighter\HttpLogger\Formatter\PlainTextFormatter;
 use Cryonighter\HttpLogger\Handler\DefaultRequestHandler;
 use Cryonighter\HttpLogger\Handler\DefaultResponseHandler;
 
-$logger = new StreamHttpLogger(STDOUT, new PlainTextFormatter(), new DefaultRequestHandler(), new DefaultResponseHandler());
+$logger = new StreamHttpLogger(
+    STDOUT,
+    new PlainTextFormatter(),
+    new DefaultRequestHandler(),
+    new DefaultResponseHandler(),
+    new DefaultErrorHandler(),
+);
 
 $logger->logRequest($protocolVersion, $method, $uri, $headers, $body);
 $logger->logResponse($protocolVersion, $code, $reason, $headers, $body);

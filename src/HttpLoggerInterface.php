@@ -6,6 +6,8 @@ use Psr\Http\Message\UriInterface;
 
 interface HttpLoggerInterface
 {
+    public function logError(string $error): void;
+
     /**
      * @param string[][] $headers
      */

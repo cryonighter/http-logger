@@ -6,6 +6,8 @@ use Psr\Http\Message\UriInterface;
 
 interface FormatterInterface
 {
+    public function formatError(string $error): string;
+
     /**
      * @param array | string[][] $headers
      */

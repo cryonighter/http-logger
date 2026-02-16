@@ -6,6 +6,11 @@ use Psr\Http\Message\UriInterface;
 
 class StubHttpLogger implements HttpLoggerInterface
 {
+    public function logError(string $error): void
+    {
+        // stub
+    }
+
     /**
      * @param string[][] $headers
      */

@@ -16,6 +16,11 @@ class PlainTextFormatter implements FormatterInterface
         $this->lineSeparator = $lineSeparator;
     }
 
+    public function formatError(string $error): string
+    {
+        return $error;
+    }
+
     /**
      * @param array | string[][] $headers
      */
