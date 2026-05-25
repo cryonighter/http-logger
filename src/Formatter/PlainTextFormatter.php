@@ -26,7 +26,7 @@ class PlainTextFormatter implements FormatterInterface
      */
     public function formatRequest(string $protocolVersion, string $method, UriInterface $url, array $headers = [], string $body = ''): string
     {
-        $message = "$method {$this->preparePath($url->getPath())} HTTP/$protocolVersion{$this->lineSeparator}{$this->headersToString($headers)}{$this->lineSeparator}{$this->lineSeparator}";
+        $message = "$method {$this->preparePath($url)} HTTP/$protocolVersion{$this->lineSeparator}{$this->headersToString($headers)}{$this->lineSeparator}{$this->lineSeparator}";
 
         if (!empty($body)) {
             $message .= "$body{$this->lineSeparator}{$this->lineSeparator}";
@@ -71,8 +71,10 @@ class PlainTextFormatter implements FormatterInterface
         return implode($this->lineSeparator, $result);
     }
 
-    private function preparePath(?string $path): string
+    private function preparePath(UriInterface $url): string
     {
-        return empty($path) ? '/' : $path;
+        $path = empty($url->getPath()) ? '/' : $url->getPath();
+
+        return $url->getQuery() ? "$path?{$url->getQuery()}" : $path;
     }
 }
